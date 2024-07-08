@@ -5,3 +5,4 @@ export default conf = {
   appwriteCollectionId: String(import.meta.env.VITE_COLLECTION_ID),
   appwriteBucketId: String(import.meta.env.VITE_BUCKET_ID),
 };
+// we created this so that we dont run into errors later where our env variables sometimes arent in string format
