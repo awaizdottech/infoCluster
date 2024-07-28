@@ -46,7 +46,7 @@ export class AuthService {
     try {
       return await this.account.get();
     } catch (error) {
-      throw error;
+      console.log("Appwrite service :: getCurrentUser :: error", error);
     }
     return null; // this will work if there's no account found or instead of error something else is returned
   }
@@ -59,5 +59,5 @@ export class AuthService {
     }
   }
 }
-
-export default new AuthService();
+const authService = new AuthService();
+export default authService;
