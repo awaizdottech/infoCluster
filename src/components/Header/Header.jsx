@@ -7,6 +7,7 @@ export default function Header() {
   const authStatus = useSelector((state) => state.auth.status);
   const navigate = useNavigate();
   const navItems = [
+    // todo: add currentRoute prop then accordingly the style
     {
       name: "Home",
       slug: "/",
