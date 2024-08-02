@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import authService from "../appwrite/auth";
 import { login } from "../store/authSlice";
-import { Input, Button } from "./index";
+import { Input, Button, Logo } from "./index";
 
-export default Signup = () => {
+export default function Signup() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -70,4 +70,4 @@ export default Signup = () => {
       </div>
     </div>
   );
-};
+}

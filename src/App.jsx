@@ -25,7 +25,9 @@ function App() {
     <div className="bg-black text-white">
       <div>
         <Header />
-        <main>{/* <Outlet /> */}</main>
+        <main>
+          <Outlet />
+        </main>
         <Footer />
       </div>
     </div>
