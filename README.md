@@ -6,3 +6,9 @@ https://youtu.be/lfMyCuB6xfc?feature=shared&t=1677
 https://youtu.be/lfMyCuB6xfc?feature=shared&t=2953
 
 - todo: image compression, security etc also available for images in appwrite
+- todo: need to handle "Creation of a session is prohibited when a session is active"
+
+### bugs found in chai aur react repo
+
+- empty useEffect
+- userData not properly dispatching in login & signup

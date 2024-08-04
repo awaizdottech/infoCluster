@@ -9,6 +9,5 @@ export default function LogoutBtn() {
       dispatch(logout());
     });
   };
-  dispatch();
-  return <button>Logout</button>;
+  return <button onClick={logoutHandler}>Logout</button>;
 }

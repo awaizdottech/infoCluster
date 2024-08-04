@@ -6,19 +6,18 @@ import { Container, PostForm } from "../components";
 export default function EditPost() {
   const [post, setPost] = useState(null);
   const { slug } = useParams();
-  const navigate = useNavigate(
-    useEffect(() => {
-      if (slug) {
-        appwriteService.getPost(slug).then((post) => {
-          if (post) {
-            setPost(post);
-          }
-        });
-      } else {
-        navigate("/");
-      }
-    }, [slug, navigate])
-  );
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (slug) {
+      appwriteService.getPost(slug).then((post) => {
+        if (post) {
+          setPost(post);
+        }
+      });
+    } else {
+      navigate("/");
+    }
+  }, [slug, navigate]);
   return post ? (
     <div>
       <Container>

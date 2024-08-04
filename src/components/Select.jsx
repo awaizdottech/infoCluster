@@ -7,8 +7,14 @@ export default forwardRef(function Select(
   const id = useId();
   return (
     <>
-      {label && <lable htmlFor={id}></lable>}
-      <select {...props} id={id} ref={ref} className={`${className}`}>
+      {label && <label htmlFor={id}></label>}
+      <select
+        {...props}
+        id={id}
+        ref={ref}
+        className={`${className}`}
+        defaultValue="active"
+      >
         {options?.map((option) => (
           <option key={option} value={option}>
             {option}

@@ -18,7 +18,7 @@ export default function Signup() {
       const userData = await authService.createAccount(data);
       if (userData) {
         const user = await authService.getCurrentUser();
-        if (user) dispatch(login(user));
+        if (user) dispatch(login({ user }));
         navigate("/");
       }
     } catch (error) {
@@ -33,9 +33,9 @@ export default function Signup() {
             <Logo width="100%" />
           </span>
         </div>
-        <h2>sign in to your account?</h2>
+        <h2>sign up to your account</h2>
         <p>
-          dont have any account? <Link to="/signup">sign up</Link>
+          already have an account? <Link to="/login">log in</Link>
         </p>
         {error && <p>{error}</p>}
         <form onSubmit={handleSubmit(Signup)}>

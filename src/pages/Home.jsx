@@ -7,20 +7,19 @@ export default function Home() {
 
   useEffect(() => {
     appwriteService.getPosts().then((posts) => {
-      if (Array.isArray(posts)) {
-        setPosts(posts);
+      if (posts) {
+        setPosts(posts.documents);
       }
     });
   }, []);
 
-  console.log(posts.length);
-  if (posts.length == 0) {
+  if (posts.length === 0) {
     return (
       <div>
         <Container>
           <div>
             <div>
-              <h1>login to read posts</h1>
+              <h1>be the first to add something :)</h1>
             </div>
           </div>
         </Container>
@@ -32,7 +31,7 @@ export default function Home() {
     <div>
       <Container>
         <div>
-          {posts?.map((post) => (
+          {posts.map((post) => (
             <div key={post.$id}>
               <PostCard {...post} />
             </div>

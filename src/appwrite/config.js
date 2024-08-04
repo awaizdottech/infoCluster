@@ -14,7 +14,7 @@ export class Service {
     this.bucket = new Storage(this.client);
   }
 
-  async createPost({ title, slug, content, featuredImage, status, userId }) {
+  async createPost({ title, slug, content, imageId, status, userId }) {
     try {
       return await this.databases.createDocument(
         conf.appwriteDatabaseId,
@@ -23,7 +23,7 @@ export class Service {
         {
           title,
           content,
-          featuredImage,
+          imageId,
           status,
           userId,
         }
@@ -33,7 +33,7 @@ export class Service {
     }
   }
 
-  async updatePost(slug, { title, content, featuredImage, status }) {
+  async updatePost(slug, { title, content, imageId, status }) {
     // no userid as we're giving edit option to only the owner of the blog
     try {
       return await this.databases.updateDocument(
@@ -43,7 +43,7 @@ export class Service {
         {
           title,
           content,
-          featuredImage,
+          imageId,
           status,
         }
       );

@@ -1,5 +1,6 @@
 import { Editor } from "@tinymce/tinymce-react";
 import { Controller } from "react-hook-form";
+import conf from "../conf/conf";
 
 export default function RTE({ name, control, label, defaultValue = "" }) {
   return (
@@ -10,6 +11,7 @@ export default function RTE({ name, control, label, defaultValue = "" }) {
         control={control}
         render={({ field: { onChange } }) => (
           <Editor
+            apiKey={conf.tinymceApiKey}
             initialValue={defaultValue}
             init={{
               initialValue: defaultValue,
@@ -38,7 +40,7 @@ export default function RTE({ name, control, label, defaultValue = "" }) {
                 "anchor",
               ],
               toolbar:
-                "undo redo | blocks | image | bold italic forecolor | alignleft aligncenter bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent |removeformat | help",
+                "undo redo | blocks | image | bold italic forecolor | alignleft aligncenter | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent |removeformat | help",
               content_style:
                 "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
             }}

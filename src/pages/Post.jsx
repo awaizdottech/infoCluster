@@ -21,12 +21,13 @@ export default function Post() {
         else navigate("/");
       });
     } else navigate("/");
+    // todo: for all components & pages that use slug if it is invalid handle the error or response properly. also decide if redirecting to home is a good idea
   }, [slug, navigate]);
 
   const deletePost = () => {
     appwriteService.deletePost(post.$id).then((status) => {
       if (status) {
-        appwriteService.deleteFile(post.featuredImage);
+        appwriteService.deleteFile(post.imageId);
         navigate("/");
       }
     });
@@ -37,7 +38,7 @@ export default function Post() {
       <Container>
         <div>
           <img
-            src={appwriteService.getFilePreview(post.featuredImage)}
+            src={appwriteService.getFilePreview(post.imageId)}
             alt={post.title}
             className="rounded-xl"
           />

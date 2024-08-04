@@ -4,12 +4,15 @@ import { useEffect, useState } from "react";
 
 export default function AllPosts() {
   const [posts, setPosts] = useState([]);
-  useEffect(() => {}, []);
-  appwriteService.getPosts([]).then((posts) => {
-    if (posts) {
-      setPosts(posts.documents);
-    }
-  });
+  useEffect(() => {
+    appwriteService.getPosts([]).then((posts) => {
+      if (posts) {
+        setPosts(posts.documents);
+      }
+      //handle if posts arent received
+    });
+  }, []);
+
   return (
     <div>
       <Container>
