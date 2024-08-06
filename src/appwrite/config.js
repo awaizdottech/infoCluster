@@ -30,6 +30,7 @@ export class Service {
       );
     } catch (error) {
       console.log("Appwrite service::createPost::error", error);
+      throw error;
     }
   }
 
@@ -49,6 +50,7 @@ export class Service {
       );
     } catch (error) {
       console.log("Appwrite service::updatePost::error", error);
+      throw error;
     }
   }
 
@@ -88,6 +90,7 @@ export class Service {
       );
     } catch (error) {
       console.log("Appwrite service::getPosts::error", error);
+      throw error;
     }
   }
 
@@ -116,7 +119,12 @@ export class Service {
   }
 
   getFilePreview(fileId) {
-    return this.bucket.getFilePreview(conf.appwriteBucketId, fileId);
+    try {
+      return this.bucket.getFilePreview(conf.appwriteBucketId, fileId);
+    } catch (error) {
+      console.log("Appwrite service::getFilePreview::error", error);
+      throw error;
+    }
   }
 }
 

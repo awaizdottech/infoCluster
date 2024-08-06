@@ -3,74 +3,26 @@ import Logo from "../Logo";
 
 function Footer() {
   return (
-    <section>
+    <section className="flex justify-around p-10 pb-18">
+      <Link className="p-5" to="/">
+        <Logo width="70px" />
+      </Link>
       <div>
-        <div>
-          <div>
-            <div>
-              <div>
-                <Logo width="100px" />
-              </div>
-              <div>
-                <p>&copy; Copyright 2023. All Rights Reserved by DevUI.</p>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div>
-              <h3>Company</h3>
-              <ul>
-                <li>
-                  <Link to="/">Features</Link>
-                </li>
-                <li>
-                  <Link>Pricing</Link>
-                </li>
-                <li>
-                  <Link to="/">Affiliate Program</Link>
-                </li>
-                <li>
-                  <Link to="/">Press Kit</Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div>
-            <div>
-              <h3>Support</h3>
-              <ul>
-                <li>
-                  <Link to="/">Account</Link>
-                </li>
-                <li>
-                  <Link to="/">Help</Link>
-                </li>
-                <li>
-                  <Link to="/">Contact Us</Link>
-                </li>
-                <li>
-                  <Link to="/">Customer Support</Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div>
-            <div>
-              <h3>Legals</h3>
-              <ul>
-                <li>
-                  <Link to="/">Terms &amp; Conditions</Link>
-                </li>
-                <li>
-                  <Link to="/">Privacy Policy</Link>
-                </li>
-                <li>
-                  <Link to="/">Licensing</Link>
-                </li>
-              </ul>
-            </div>
-          </div>
+        <div className="flex">
+          <p className="p-5">
+            &copy; Copyright 2024. All Rights Reserved by{" "}
+            <Link to="https://www.awaiz.tech/">
+              <span className="hover:text-[#7f5af0] underline">
+                awaizdottech
+              </span>
+            </Link>
+          </p>
         </div>
+        <Link to="/">
+          <span className="hover:text-[#7f5af0] underline">
+            Github Project Repo
+          </span>
+        </Link>
       </div>
     </section>
   );

@@ -6,24 +6,26 @@ import { Provider } from "react-redux";
 import store from "./store/store.js";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Home from "./pages/Home.jsx";
-import { AuthLayout, Login } from "./components/index.js";
-
-import AddPost from "./pages/AddPost";
-import Signup from "./pages/Signup";
+import { AuthLayout, Login, PostForm, Signup } from "./components/index.js";
 import EditPost from "./pages/EditPost";
-
 import Post from "./pages/Post";
-
 import AllPosts from "./pages/AllPosts";
+import Error404 from "./pages/Error404.jsx";
 
 const router = createBrowserRouter([
+  // if we dont wrap components in authlayout they will be accessible to both visitors & users
   {
     path: "/",
     element: <App />,
+    errorElement: <Error404 />,
     children: [
       {
         path: "/",
-        element: <Home />,
+        element: (
+          <AuthLayout authRequired>
+            <Home />
+          </AuthLayout>
+        ),
       },
       {
         path: "/login",
@@ -42,7 +44,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/all-posts",
+        path: "/my-posts",
         element: (
           <AuthLayout authRequired>
             <AllPosts />
@@ -53,7 +55,7 @@ const router = createBrowserRouter([
         path: "/add-post",
         element: (
           <AuthLayout authRequired>
-            <AddPost />
+            <PostForm />
           </AuthLayout>
         ),
       },
@@ -67,7 +69,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/post/:slug",
-        element: <Post />,
+        element: (
+          <AuthLayout authRequired>
+            <Post />,
+          </AuthLayout>
+        ),
       },
     ],
   },

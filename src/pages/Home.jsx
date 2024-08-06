@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import appwriteService from "../appwrite/config";
-import { Container, PostCard } from "../components";
+import { Container, BigLoadingSVG, PostCard } from "../components";
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
@@ -13,31 +13,17 @@ export default function Home() {
     });
   }, []);
 
-  if (posts.length === 0) {
-    return (
-      <div>
-        <Container>
-          <div>
-            <div>
-              <h1>be the first to add something :)</h1>
-            </div>
-          </div>
-        </Container>
-      </div>
-    );
-  }
-
-  return (
-    <div>
-      <Container>
-        <div>
-          {posts.map((post) => (
-            <div key={post.$id}>
-              <PostCard {...post} />
-            </div>
-          ))}
-        </div>
-      </Container>
+  return posts.length === 0 ? (
+    <div className="flex flex-col items-center">
+      <BigLoadingSVG />
     </div>
+  ) : (
+    <Container className="grid grid-cols-4 gap-6 px-10">
+      {posts.map((post) => (
+        <div key={post.$id}>
+          <PostCard {...post} />
+        </div>
+      ))}
+    </Container>
   );
 }

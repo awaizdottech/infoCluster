@@ -12,6 +12,7 @@ import Login from "./Login";
 import PostForm from "./PostForm/PostForm";
 import PostCard from "./PostCard";
 import AuthLayout from "./AuthLayout";
+import { BigLoadingSVG, SmallLoadingSVG } from "./LoadingSVGs";
 
 export {
   Header,
@@ -28,4 +29,6 @@ export {
   PostForm,
   PostCard,
   AuthLayout,
+  BigLoadingSVG,
+  SmallLoadingSVG,
 };

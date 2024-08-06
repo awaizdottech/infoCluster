@@ -6,8 +6,12 @@ export default forwardRef(function Input(
 ) {
   const id = useId();
   return (
-    <>
-      {label && <label htmlFor={id}>{label}</label>}
+    <div className="flex-col">
+      {label && (
+        <label className="mx-3" htmlFor={id}>
+          {label}
+        </label>
+      )}
       <input
         type={type}
         className={`${className}`}
@@ -15,6 +19,6 @@ export default forwardRef(function Input(
         id={id}
         {...props}
       />
-    </>
+    </div>
   );
 });

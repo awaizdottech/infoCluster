@@ -22,14 +22,12 @@ function App() {
       .finally(() => setLoading(false));
   }, []);
   return !loading ? (
-    <div className="bg-black text-white">
-      <div>
-        <Header />
-        <main>
-          <Outlet />
-        </main>
-        <Footer />
-      </div>
+    <div className="bg-[#16161a] text-[#fffffe] text-xl flex flex-col min-h-screen">
+      <Header />
+      <main className="flex-1 overflow-hidden">
+        <Outlet />
+      </main>
+      <Footer />
     </div>
   ) : null;
 }

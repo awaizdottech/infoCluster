@@ -1,13 +1,16 @@
 export default function Button({
   children,
   type = "button",
-  bgColor,
+  bgColor = "bg-[#7f5af0]",
   textColor,
   className = "",
   ...props
 }) {
   return (
-    <button className={`${bgColor} ${textColor} ${className}`} {...props}>
+    <button
+      className={`${bgColor} ${textColor} ${className}  rounded-3xl mx-5 py-2 px-5 mb-10`}
+      {...props}
+    >
       {children}
     </button>
   );

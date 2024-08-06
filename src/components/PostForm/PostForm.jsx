@@ -1,13 +1,15 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import appwriteServices from "../../appwrite/config";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Button, Input, Select, RTE } from "../index";
+import { Button, Input, Select, RTE, SmallLoadingSVG } from "../index";
 
 export default function PostForm({ post }) {
   const navigate = useNavigate();
   const userData = useSelector((state) => state.auth.userData);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const { register, handleSubmit, watch, setValue, control, getValues } =
     useForm({
       defaultValues: {
@@ -19,43 +21,48 @@ export default function PostForm({ post }) {
     });
 
   const submit = async (data) => {
-    // if updating existing post
-    if (post) {
-      //always upload file first
-      const file = data.image[0]
-        ? await appwriteServices.uploadFile(data.image[0])
-        : null;
-      console.log("old image id", post.imageId);
-      if (file) {
-        appwriteServices.deleteFile(post.imageId);
-        console.log("new image details", file);
-      }
-      const dbPost = await appwriteServices.updatePost(post.$id, {
-        ...data,
-        imageId: file.$id || undefined,
-      });
-      console.log("updated post", dbPost);
-      if (dbPost) {
-        navigate(`/post/${dbPost.$id}`);
-      }
-    } else {
-      //creating new post
-      const file = data.image[0]
-        ? await appwriteServices.uploadFile(data.image[0])
-        : null;
-
-      if (file) {
-        console.log("posted image details", file);
-        const fileId = file.$id;
-        data.imageId = fileId;
-        const dbPost = await appwriteServices.createPost({
-          ...data,
-          userId: userData.$id,
-        });
+    setError("");
+    setLoading(true);
+    try {
+      // if updating existing post
+      if (post) {
+        //always upload file first
+        const file = data.image[0]
+          ? await appwriteServices.uploadFile(data.image[0])
+          : null;
+        if (file) {
+          appwriteServices.deleteFile(post.imageId);
+          const dbPost = await appwriteServices.updatePost(post.$id, {
+            ...data,
+            imageId: file.$id || undefined,
+          });
+        }
+        const dbPost = await appwriteServices.updatePost(post.$id, { ...data });
         if (dbPost) {
           navigate(`/post/${dbPost.$id}`);
         }
+        // todo: handle char limit
+      } else {
+        //creating new post
+        const file = data.image[0]
+          ? await appwriteServices.uploadFile(data.image[0])
+          : null;
+
+        if (file) {
+          const fileId = file.$id;
+          data.imageId = fileId;
+          const dbPost = await appwriteServices.createPost({
+            ...data,
+            userId: userData.$id,
+          });
+          if (dbPost) {
+            navigate(`/post/${dbPost.$id}`);
+          }
+        }
       }
+    } catch (error) {
+      setLoading(false);
+      setError(error.message);
     }
   };
 
@@ -80,18 +87,20 @@ export default function PostForm({ post }) {
   }, [watch, slugTransform, setValue]);
 
   return (
-    <form onSubmit={handleSubmit(submit)}>
+    <form className="bg-[#242629] py-10" onSubmit={handleSubmit(submit)}>
+      {error && <p className="mb-8">{error}</p>}
       <div>
         <Input
           label="Title :"
           placeholder="Title"
-          className="text-black"
+          className="text-black rounded-md m-4"
           {...register("title", { required: true })}
         />
         <Input
           label="Slug :"
+          readOnly
           placeholder="Slug"
-          className="text-black"
+          className="text-black rounded-md m-4"
           {...register("slug", { required: true })}
           onInput={(e) => {
             setValue("slug", slugTransform(e.currentTarget.value), {
@@ -106,31 +115,32 @@ export default function PostForm({ post }) {
           defaultValue={getValues("content")}
         />
       </div>
-      <div>
+      <div className="my-12">
         <Input
           label="Featured Image :"
           type="file"
           accept="image/png, image/jpg, image/jpeg, image/gif"
           {...register("image", { required: !post })}
         />
-        {post && (
-          <div>
-            <img
-              src={appwriteServices.getFilePreview(post.imageId)}
-              alt={post.title}
-            />
-          </div>
-        )}
         <Select
-          className="text-black"
+          className="text-black rounded-3xl px-2 my-10"
           options={["active", "inactive"]}
           label="Status"
           {...register("status", { required: true })}
         />
-        <Button type="submit" bgColor={post ? "bg-green-500" : undefined}>
-          {post ? "Update" : "Submit"}
+        <Button type="submit" className="mt-6" disabled={loading}>
+          {loading ? <SmallLoadingSVG /> : post ? "Update" : "Submit"}
         </Button>
       </div>
+      {post && (
+        <div className="flex justify-center">
+          <img
+            className="max-w-3xl"
+            src={appwriteServices.getFilePreview(post.imageId)}
+            alt={post.title}
+          />
+        </div>
+      )}
     </form>
   );
 }
