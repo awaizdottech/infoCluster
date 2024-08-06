@@ -18,7 +18,7 @@ function Footer() {
             </Link>
           </p>
         </div>
-        <Link to="/">
+        <Link to="https://github.com/awaizdottech/infoCluster">
           <span className="hover:text-[#7f5af0] underline">
             Github Project Repo
           </span>

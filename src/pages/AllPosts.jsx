@@ -21,8 +21,8 @@ export default function AllPosts() {
   }, []);
 
   return posts.length === 0 ? (
-    <div className="flex flex-col items-center">
-      <BigLoadingSVG />
+    <div className="flex flex-col items-center text-3xl">
+      <p>Add your blogs to see in this tab :)</p>
     </div>
   ) : (
     <div>
