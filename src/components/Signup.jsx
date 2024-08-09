@@ -31,7 +31,7 @@ export default function Signup() {
     }
   };
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center grow justify-center">
       <h2 className="text-4xl mb-5">Sign up for an account</h2>
       <p className="mb-5">
         Already have an account?{" "}

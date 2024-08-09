@@ -24,7 +24,7 @@ function App() {
   return !loading ? (
     <div className="bg-[#16161a] text-[#fffffe] text-xl flex flex-col min-h-screen">
       <Header />
-      <main className="flex-1 overflow-hidden">
+      <main className="flex-1 overflow-hidden flex flex-col">
         <Outlet />
       </main>
       <Footer />

@@ -30,7 +30,7 @@ export default function Login() {
   };
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center grow justify-center">
       <h2 className="text-4xl mb-5">Log in to your account</h2>
       <p className="mb-5">
         Dont have an account?{" "}
