@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import appwriteService from "../appwrite/config";
+import appwriteService from "../appwrite/post";
 
 export default function PostCard({ $id, title, imageId, status }) {
   // we are using appwrite for retrieving the info directly & it has the variable $id

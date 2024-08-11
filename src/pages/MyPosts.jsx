@@ -1,10 +1,10 @@
-import { Container, BigLoadingSVG, PostCard } from "../components";
-import appwriteService from "../appwrite/config";
+import { Container, PostCard } from "../components";
+import appwriteService from "../appwrite/post";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Query } from "appwrite";
 
-export default function AllPosts() {
+export default function MyPosts() {
   const [posts, setPosts] = useState([]);
   const userData = useSelector((state) => state.auth.userData);
 
@@ -13,7 +13,6 @@ export default function AllPosts() {
       .getPosts([Query.equal("userId", userData.$id)])
       .then((posts) => {
         if (posts) {
-          console.log("posts", posts);
           setPosts(posts.documents);
         }
         //handle if posts arent received

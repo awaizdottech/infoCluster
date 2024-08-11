@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import appwriteService from "../appwrite/config";
+import appwriteService from "../appwrite/post";
 import { Container, BigLoadingSVG, PostCard } from "../components";
 
 export default function Home() {

@@ -9,7 +9,7 @@ import Home from "./pages/Home.jsx";
 import { AuthLayout, Login, PostForm, Signup } from "./components/index.js";
 import EditPost from "./pages/EditPost";
 import Post from "./pages/Post";
-import AllPosts from "./pages/AllPosts";
+import MyPosts from "./pages/MyPosts.jsx";
 import Error404 from "./pages/Error404.jsx";
 
 const router = createBrowserRouter([
@@ -47,7 +47,7 @@ const router = createBrowserRouter([
         path: "/my-posts",
         element: (
           <AuthLayout authRequired>
-            <AllPosts />
+            <MyPosts />
           </AuthLayout>
         ),
       },
