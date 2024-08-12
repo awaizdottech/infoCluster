@@ -98,7 +98,6 @@ export default function PostForm({ post }) {
         />
         <Input
           label="Slug :"
-          readOnly
           placeholder="Slug"
           className="text-black rounded-md m-4"
           {...register("slug", { required: true })}
