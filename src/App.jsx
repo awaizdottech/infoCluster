@@ -5,6 +5,8 @@ import authService from "./appwrite/auth";
 import { login, logout } from "./store/authSlice";
 import { Footer, Header } from "./components";
 import { Outlet } from "react-router-dom";
+import appwriteService from "./appwrite/post";
+import { addPosts } from "./store/postsSlice";
 
 function App() {
   const [loading, setLoading] = useState(true); //true because useEffect starts right away when page starts loading
@@ -15,6 +17,13 @@ function App() {
       .then((userData) => {
         if (userData) {
           dispatch(login({ userData }));
+          appwriteService.getPosts().then((posts) => {
+            console.log(posts);
+
+            if (posts) {
+              dispatch(addPosts({ posts }));
+            }
+          });
         } else {
           dispatch(logout());
         }

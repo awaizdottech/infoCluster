@@ -1,29 +1,20 @@
-import { useEffect, useState } from "react";
-import appwriteService from "../appwrite/post";
 import { Container, BigLoadingSVG, PostCard } from "../components";
+import { useSelector } from "react-redux";
 
 export default function Home() {
-  const [posts, setPosts] = useState([]);
+  const posts = useSelector((state) => state.allposts.posts);
 
-  useEffect(() => {
-    appwriteService.getPosts().then((posts) => {
-      if (posts) {
-        setPosts(posts.documents);
-      }
-    });
-  }, []);
-
-  return posts.length === 0 ? (
-    <div className="flex flex-col items-center">
-      <BigLoadingSVG />
-    </div>
-  ) : (
+  return posts ? (
     <Container className="grid grid-cols-4 gap-6 px-10">
-      {posts.map((post) => (
+      {posts.documents.map((post) => (
         <div key={post.$id}>
           <PostCard {...post} />
         </div>
       ))}
     </Container>
+  ) : (
+    <div className="flex flex-col items-center">
+      <BigLoadingSVG />
+    </div>
   );
 }

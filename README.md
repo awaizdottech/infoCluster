@@ -2,6 +2,8 @@
 
 A full-fledged blog application implemented with industry level practices!
 
+## features
+
 - Users can also hide their blogs whenever they wish as well as unhide them.
 
 ## Installation
@@ -45,3 +47,10 @@ Provide step-by-step instructions to get the development environment running.
 
 - image compression, security etc also available for images in appwrite
 - account delete option, acc post delete or keep
+
+mobile friendly
+editor mentioned in posts
+post redux slice
+fixed image size & skeleton for images
+docker
+limiting the loading animation then displaying error info

@@ -20,7 +20,7 @@ const router = createBrowserRouter([
     errorElement: <Error404 />,
     children: [
       {
-        path: "/",
+        path: "",
         element: (
           <AuthLayout authRequired>
             <Home />
