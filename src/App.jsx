@@ -19,8 +19,11 @@ function App() {
           dispatch(login({ userData }));
           appwriteService.getPosts().then((posts) => {
             console.log(posts);
-
             if (posts) {
+              // posts.documents.forEach((post) => {
+              //   const response = appwriteService.getFilePreview(post.imageId);
+              //   response.blob();
+              // });
               dispatch(addPosts({ posts }));
             }
           });
@@ -31,7 +34,7 @@ function App() {
       .finally(() => setLoading(false));
   }, []);
   return !loading ? (
-    <div className="bg-[#16161a] text-[#fffffe] text-xl flex flex-col min-h-screen">
+    <div className="bg-[#16161a] text-[#fffffe] flex flex-col sm:min-h-screen">
       <Header />
       <main className="flex-1 overflow-hidden flex flex-col">
         <Outlet />

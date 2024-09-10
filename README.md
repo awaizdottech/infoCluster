@@ -54,3 +54,4 @@ post redux slice
 fixed image size & skeleton for images
 docker
 limiting the loading animation then displaying error info
+proper loading of blogs when visited by direct blog links

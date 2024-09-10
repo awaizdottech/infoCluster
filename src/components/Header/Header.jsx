@@ -38,7 +38,7 @@ export default function Header() {
   ];
   return (
     <header>
-      <Container className="m-3">
+      <Container>
         <nav className="flex">
           <Link className="p-5" to="/">
             <Logo />
