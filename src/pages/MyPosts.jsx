@@ -25,7 +25,7 @@ export default function MyPosts() {
     </div>
   ) : (
     <div>
-      <Container className="grid grid-cols-4 gap-10 px-10">
+      <Container className="sm:grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 px-5">
         {posts.map((post) => (
           <div key={post.$id}>
             <PostCard {...post} />
