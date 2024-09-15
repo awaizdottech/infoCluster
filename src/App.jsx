@@ -20,10 +20,6 @@ function App() {
           appwriteService.getPosts().then((posts) => {
             console.log(posts);
             if (posts) {
-              // posts.documents.forEach((post) => {
-              //   const response = appwriteService.getFilePreview(post.imageId);
-              //   response.blob();
-              // });
               dispatch(addPosts({ posts }));
             }
           });

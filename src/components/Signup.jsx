@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import authService from "../appwrite/auth";
 import { login } from "../store/authSlice";
 import { Input, Button, SmallLoadingSVG } from "./index";
+import appwriteService from "../appwrite/post";
+import { addPosts } from "../store/postsSlice";
 
 export default function Signup() {
   const [error, setError] = useState("");
@@ -22,6 +24,11 @@ export default function Signup() {
         const userData = await authService.getCurrentUser();
         if (userData) {
           dispatch(login({ userData }));
+          appwriteService.getPosts().then((posts) => {
+            if (posts) {
+              dispatch(addPosts({ posts }));
+            }
+          });
         }
         navigate("/");
       }
@@ -42,18 +49,18 @@ export default function Signup() {
       {error && <p className="mb-8">{error}</p>}
       <form
         onSubmit={handleSubmit(Signup)}
-        className="bg-[#242629] flex flex-col rounded-3xl p-16"
+        className="bg-[#242629] flex flex-col rounded-xl p-16 max-md:px-10"
       >
         <Input
-          label="name: "
+          label="Name:"
           placeholder="enter your full name"
-          className="rounded-lg text-black my-4"
+          className="rounded-lg text-black my-3"
           {...register("name", { required: true })}
         />
         <Input
           type="email"
-          label="email: "
-          className="rounded-lg text-black my-4"
+          label="Email:"
+          className="rounded-lg text-black my-3"
           placeholder="enter your email"
           {...register("email", {
             required: true,
@@ -66,9 +73,9 @@ export default function Signup() {
         />
         <Input
           type="password"
-          label="password: "
+          label="Password:"
           placeholder="enter your password"
-          className="rounded-lg text-black my-4"
+          className="rounded-lg text-black my-3"
           {...register("password", { required: true })}
         />
         <Button

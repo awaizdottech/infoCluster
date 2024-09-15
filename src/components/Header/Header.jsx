@@ -67,7 +67,7 @@ export default function Header() {
                 <li className="p-5">
                   <LogoutBtn className="hover:text-[#7f5af0]" />
                 </li>
-                <li className="px-6 py-3 my-4 rounded-full mx-5 bg-[#7f5af0]">
+                <li className="px-5 py-3 my-4 rounded-full mx-5 bg-[#7f5af0]">
                   {userData.name[0].toUpperCase()}
                 </li>
               </div>

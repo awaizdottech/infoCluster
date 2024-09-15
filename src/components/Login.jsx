@@ -5,6 +5,8 @@ import { Button, Input, SmallLoadingSVG } from "./index";
 import { useDispatch } from "react-redux";
 import authService from "../appwrite/auth";
 import { useForm } from "react-hook-form";
+import appwriteService from "../appwrite/post";
+import { addPosts } from "../store/postsSlice";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -20,7 +22,14 @@ export default function Login() {
       const session = await authService.login(data);
       if (session) {
         const userData = await authService.getCurrentUser();
-        if (userData) dispatch(authLogin({ userData }));
+        if (userData) {
+          dispatch(authLogin({ userData }));
+          appwriteService.getPosts().then((posts) => {
+            if (posts) {
+              dispatch(addPosts({ posts }));
+            }
+          });
+        }
         navigate("/");
       }
     } catch (error) {
@@ -41,13 +50,13 @@ export default function Login() {
       {error && <p className="mb-8">{error}</p>}
       <form
         onSubmit={handleSubmit(login)}
-        className="bg-[#242629] flex flex-col rounded-3xl p-16"
+        className="bg-[#242629] flex flex-col rounded-xl p-16 max-md:px-10"
       >
         <Input
           type="email"
-          label="Email: "
+          label="Email:"
           placeholder="enter your email"
-          className="rounded-lg text-black my-4"
+          className="rounded-lg text-black my-3"
           {...register("email", {
             required: true,
             validate: {
@@ -58,8 +67,8 @@ export default function Login() {
           })}
         />
         <Input
-          className="rounded-lg text-black my-4"
-          label="Password"
+          className="rounded-lg text-black my-3"
+          label="Password:"
           type="password"
           placeholder="enter your password: "
           {...register("password", {

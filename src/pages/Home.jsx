@@ -1,30 +1,25 @@
 import { Container, BigLoadingSVG, PostCard } from "../components";
-import { useDispatch, useSelector } from "react-redux";
-import appwriteService from "../appwrite/post";
-import { addPosts } from "../store/postsSlice";
+import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   const posts = useSelector((state) => state.allposts.posts);
-  const dispatch = useDispatch();
-  if (!posts) {
-    appwriteService.getPosts().then((posts) => {
-      console.log(posts);
-      if (posts) {
-        // posts.documents.forEach((post) => {
-        //   const response = appwriteService.getFilePreview(post.imageId);
-        //   response.blob();
-        // });
-        console.log("got in");
+  const [loading, setLoading] = useState(true);
+  const [filteredPosts, setFilteredPosts] = useState([]);
+  useEffect(() => {
+    if (posts) {
+      setFilteredPosts(
+        posts.documents.filter((post) => {
+          return post.status == "active";
+        })
+      );
+      setLoading(false);
+    }
+  }, [posts]);
 
-        dispatch(addPosts({ posts }));
-      }
-    });
-  }
-  console.log(posts);
-
-  return posts ? (
+  return !loading ? (
     <Container className="sm:grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 px-5">
-      {posts.documents.map((post) => (
+      {filteredPosts.map((post) => (
         <div key={post.$id}>
           <PostCard {...post} />
         </div>

@@ -1,37 +1,43 @@
-import { Container, PostCard } from "../components";
-import appwriteService from "../appwrite/post";
-import { useEffect, useState } from "react";
+import { BigLoadingSVG, Container, PostCard } from "../components";
 import { useSelector } from "react-redux";
-import { Query } from "appwrite";
+import { useEffect, useState } from "react";
 
 export default function MyPosts() {
-  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const posts = useSelector((state) => state.allposts.posts);
   const userData = useSelector((state) => state.auth.userData);
+  const [filteredPosts, setFilteredPosts] = useState([]);
 
   useEffect(() => {
-    appwriteService
-      .getPosts([Query.equal("userId", userData.$id)])
-      .then((posts) => {
-        if (posts) {
-          setPosts(posts.documents);
-        }
-        //handle if posts arent received
-      });
-  }, []);
+    if (posts) {
+      setFilteredPosts(
+        posts.documents.filter((post) => {
+          return post.userId == userData.$id;
+        })
+      );
+      setLoading(false);
+    }
+  }, [posts]);
 
-  return posts.length === 0 ? (
-    <div className="flex flex-col items-center text-3xl">
-      <p>Add your blogs to see in this tab :)</p>
+  return loading ? (
+    <div className="flex flex-col items-center">
+      <BigLoadingSVG />
     </div>
   ) : (
     <div>
-      <Container className="sm:grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 px-5">
-        {posts.map((post) => (
-          <div key={post.$id}>
-            <PostCard {...post} />
-          </div>
-        ))}
-      </Container>
+      {filteredPosts.length !== 0 ? (
+        <Container className="sm:grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 px-5">
+          {filteredPosts.map((post) => (
+            <div key={post.$id}>
+              <PostCard {...post} />
+            </div>
+          ))}{" "}
+        </Container>
+      ) : (
+        <div className="flex flex-col items-center text-xl">
+          <p>Add your blogs to see in this tab :)</p>
+        </div>
+      )}
     </div>
   );
 }

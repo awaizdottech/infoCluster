@@ -47,12 +47,8 @@ Provide step-by-step instructions to get the development environment running.
 
 - image compression, security etc also available for images in appwrite
 - account delete option, acc post delete or keep
-
-- mobile friendly
 - editor mentioned in posts
-- post redux slice
 - fixed image size & skeleton for images
 - docker
 - limiting the loading animation then displaying error info
-- proper loading of blogs when visited by direct blog links
-- dark mode
+- light mode & mode change siwtch
