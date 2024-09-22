@@ -12,6 +12,9 @@ export default function PostCard({ $id, title, imageId, status }) {
       >
         <img
           className="aspect-[4/3] rounded-xl"
+          width={640}
+          height={420}
+          loading="lazy"
           src={appwriteService.getFilePreview(imageId)}
           alt={title}
         />
