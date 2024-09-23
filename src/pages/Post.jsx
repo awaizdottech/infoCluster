@@ -20,8 +20,8 @@ export default function Post() {
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  console.log(posts);
-  console.log(post);
+  // console.log(posts);
+  // console.log(post);
 
   useEffect(() => {
     if (post) setPageLoading(false);

@@ -2,11 +2,13 @@ import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import appwriteServices from "../../appwrite/post";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Button, Input, Select, RTE, SmallLoadingSVG } from "../index";
+import { addPost } from "../../store/postsSlice";
 
 export default function PostForm({ post }) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const userData = useSelector((state) => state.auth.userData);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -27,17 +29,20 @@ export default function PostForm({ post }) {
       // if updating existing post
       if (post) {
         //always upload file first if it is to be updated of course
+        let dbPost;
         const file = data.image[0]
           ? await appwriteServices.uploadFile(data.image[0])
           : null;
+        console.log("file uploaded", file);
+
         if (file) {
           appwriteServices.deleteFile(post.imageId);
-          const dbPost = await appwriteServices.updatePost(post.$id, {
+          dbPost = await appwriteServices.updatePost(post.$id, {
             ...data,
             imageId: file.$id || undefined,
           });
-        }
-        const dbPost = await appwriteServices.updatePost(post.$id, { ...data });
+        } else
+          dbPost = await appwriteServices.updatePost(post.$id, { ...data });
         if (dbPost) {
           navigate(`/post/${dbPost.$id}`);
         }
@@ -56,8 +61,7 @@ export default function PostForm({ post }) {
             userId: userData.$id,
           });
           if (dbPost) {
-            console.log("new post", dbPost);
-
+            dispatch(addPost({ dbPost }));
             navigate(`/post/${dbPost.$id}`);
           }
         }
