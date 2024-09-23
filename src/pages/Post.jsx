@@ -20,6 +20,8 @@ export default function Post() {
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  console.log(posts);
+  console.log(post);
 
   useEffect(() => {
     if (post) setPageLoading(false);
@@ -32,6 +34,7 @@ export default function Post() {
       appwriteService.deletePost(post.$id).then((status) => {
         if (status) {
           appwriteService.deleteFile(post.imageId);
+
           navigate("/");
         }
       });

@@ -26,7 +26,7 @@ export default function PostForm({ post }) {
     try {
       // if updating existing post
       if (post) {
-        //always upload file first
+        //always upload file first if it is to be updated of course
         const file = data.image[0]
           ? await appwriteServices.uploadFile(data.image[0])
           : null;
@@ -56,6 +56,8 @@ export default function PostForm({ post }) {
             userId: userData.$id,
           });
           if (dbPost) {
+            console.log("new post", dbPost);
+
             navigate(`/post/${dbPost.$id}`);
           }
         }

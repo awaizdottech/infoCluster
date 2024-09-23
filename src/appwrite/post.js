@@ -64,7 +64,7 @@ export class Service {
       return true;
     } catch (error) {
       console.log("Appwrite service::deletePost::error", error);
-      return false;
+      throw error;
     }
   }
 
@@ -77,7 +77,7 @@ export class Service {
       );
     } catch (error) {
       console.log("Appwrite service::getPost::error", error);
-      return false;
+      throw error;
     }
   }
 
@@ -105,17 +105,20 @@ export class Service {
       );
     } catch (error) {
       console.log("Appwrite service::uploadFile::error", error);
-      return false;
+      throw error;
     }
   }
 
   async deleteFile(fileId) {
     try {
-      await this.bucket.deleteFile(conf.appwriteBucketId, fileId);
+      const result = await this.bucket.deleteFile(
+        conf.appwriteBucketId,
+        fileId
+      );
       return true;
     } catch (error) {
       console.log("Appwrite service::deleteFile::error", error);
-      return false;
+      throw error;
     }
   }
 

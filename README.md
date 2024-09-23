@@ -45,10 +45,11 @@ Provide step-by-step instructions to get the development environment running.
 
 ## Future Plans
 
-- image compression, security etc also available for images in appwrite
-- account delete option, acc post delete or keep
-- editor mentioned in posts
-- fixed image size & skeleton for images
 - docker
-- limiting the loading animation then displaying error info
-- light mode & mode change siwtch
+- identify & set image upload limit as big images arent available via getFilePreview
+- use image compression available in appwrite
+- create account delete option, acc's post delete or keep
+- create profile pages & writer mentioned in posts with redirects to profile pages of course
+- use skeleton for images, title, etc
+- limit the loading animation then display error info wherever there's loading animation
+- light mode & mode change switch
