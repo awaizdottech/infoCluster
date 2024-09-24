@@ -8,7 +8,8 @@ import {
   SmallLoadingSVG,
 } from "../components";
 import parse from "html-react-parser";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { deletePost as deletePostFromRedux } from "../store/postsSlice";
 
 export default function Post() {
   const [pageLoading, setPageLoading] = useState(true);
@@ -20,6 +21,7 @@ export default function Post() {
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   // console.log(posts);
   // console.log(post);
 
@@ -34,7 +36,7 @@ export default function Post() {
       appwriteService.deletePost(post.$id).then((status) => {
         if (status) {
           appwriteService.deleteFile(post.imageId);
-
+          dispatch(deletePostFromRedux(post.$id));
           navigate("/");
         }
       });

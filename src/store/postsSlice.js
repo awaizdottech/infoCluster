@@ -10,8 +10,16 @@ const postsSlice = createSlice({
     addPost: (state, action) => {
       state.posts.documents = [...state.posts.documents, action.payload.dbPost];
     },
+    deletePost: (state, action) => {
+      state.posts.documents = state.posts.documents.filter((post) => {
+        return post.$id != action.payload;
+      });
+    },
+    updatePost: (state, action) => {
+      // state.posts.documents =
+    },
   },
 });
 
-export const { addPosts, addPost } = postsSlice.actions;
+export const { addPosts, addPost, deletePost } = postsSlice.actions;
 export default postsSlice.reducer;
