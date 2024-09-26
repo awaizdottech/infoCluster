@@ -1,12 +1,12 @@
 import { forwardRef, useId } from "react";
 
 export default forwardRef(function Input(
-  { label, type = "text", className = "", ...props },
+  { label, type = "text", className = "", button, ...props },
   ref
 ) {
   const id = useId();
   return (
-    <div className="flex-col">
+    <div className="flex items-center">
       {label && (
         <label className="mx-3" htmlFor={id}>
           {label}
@@ -14,11 +14,12 @@ export default forwardRef(function Input(
       )}
       <input
         type={type}
-        className={`${className}`}
+        className={`${className} flex-1`}
         ref={ref}
         id={id}
         {...props}
       />
+      {button}
     </div>
   );
 });

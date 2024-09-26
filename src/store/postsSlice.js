@@ -16,10 +16,13 @@ const postsSlice = createSlice({
       });
     },
     updatePost: (state, action) => {
-      // state.posts.documents =
+      state.posts.documents = state.posts.documents.map((post) => {
+        if (post.$id == action.payload.dbPost.$id) return action.payload.dbPost;
+        else return post;
+      });
     },
   },
 });
 
-export const { addPosts, addPost, deletePost } = postsSlice.actions;
+export const { addPosts, addPost, deletePost, updatePost } = postsSlice.actions;
 export default postsSlice.reducer;

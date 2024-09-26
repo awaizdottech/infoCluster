@@ -4,7 +4,17 @@
   padding: 2rem;
   text-align: center;
 }
-
+.londrina-shadow-regular {
+  font-family: "Londrina Shadow", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.exo {
+  font-family: "Exo", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
 .logo {
   height: 6em;
   padding: 1.5em;

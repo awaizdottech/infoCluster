@@ -4,7 +4,7 @@ import appwriteServices from "../../appwrite/post";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Input, Select, RTE, SmallLoadingSVG } from "../index";
-import { addPost } from "../../store/postsSlice";
+import { addPost, updatePost } from "../../store/postsSlice";
 
 export default function PostForm({ post }) {
   const navigate = useNavigate();
@@ -33,8 +33,6 @@ export default function PostForm({ post }) {
         const file = data.image[0]
           ? await appwriteServices.uploadFile(data.image[0])
           : null;
-        console.log("file uploaded", file);
-
         if (file) {
           appwriteServices.deleteFile(post.imageId);
           dbPost = await appwriteServices.updatePost(post.$id, {
@@ -44,6 +42,7 @@ export default function PostForm({ post }) {
         } else
           dbPost = await appwriteServices.updatePost(post.$id, { ...data });
         if (dbPost) {
+          dispatch(updatePost({ dbPost }));
           navigate(`/post/${dbPost.$id}`);
         }
         // todo: handle char limit

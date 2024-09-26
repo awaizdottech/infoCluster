@@ -49,7 +49,9 @@ export default function Post() {
   return !pageLoading ? (
     <Container className="bg-[#242629] flex flex-col items-center">
       {error && <p className="mb-8">{error}</p>}
-      <h1 className="flex-1 mx-5 my-10 text-5xl">{post.title}</h1>
+      <h1 className="flex-1 mx-5 my-10 text-5xl londrina-shadow-regular">
+        {post.title}
+      </h1>
       {isAuthor && (
         <div className="hidden xl:block xl:absolute right-6 top-36">
           <div className="flex flex-col">
