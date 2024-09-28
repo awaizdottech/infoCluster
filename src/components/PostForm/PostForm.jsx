@@ -92,19 +92,22 @@ export default function PostForm({ post }) {
   }, [watch, slugTransform, setValue]);
 
   return (
-    <form className="bg-[#242629] py-10" onSubmit={handleSubmit(submit)}>
+    <form
+      className="bg-[#242629] py-10 flex flex-col items-center"
+      onSubmit={handleSubmit(submit)}
+    >
       {error && <p className="mb-8">{error}</p>}
       <div>
         <Input
           label="Title :"
           placeholder="Title"
-          className="text-black rounded-md m-4"
+          className="text-black rounded-md m-4 max-w-xl"
           {...register("title", { required: true })}
         />
         <Input
           label="Slug :"
           placeholder="Slug"
-          className="text-black rounded-md m-4"
+          className="text-black rounded-md m-4 max-w-xl"
           {...register("slug", { required: true })}
           onInput={(e) => {
             setValue("slug", slugTransform(e.currentTarget.value), {
@@ -118,33 +121,34 @@ export default function PostForm({ post }) {
           control={control}
           defaultValue={getValues("content")}
         />
-      </div>
-      <div className="my-12">
+        {/* </div>
+      <div className="my-6 max-w-screen"> */}
         <Input
           label="Featured Image :"
           type="file"
+          className="rounded-md m-4 max-w-xl"
           accept="image/png, image/jpg, image/jpeg, image/gif"
           {...register("image", { required: !post })}
         />
+        {post && (
+          <div className="flex justify-center my-4">
+            <img
+              className="max-w-screen"
+              src={appwriteServices.getFilePreview(post.imageId)}
+              alt={post.title}
+            />
+          </div>
+        )}
         <Select
-          className="text-black rounded-3xl px-2 my-10"
+          className="text-black rounded-3xl m-4"
           options={["active", "inactive"]}
-          label="Status"
+          label="Status :"
           {...register("status", { required: true })}
         />
-        <Button type="submit" className="mt-6" disabled={loading}>
-          {loading ? <SmallLoadingSVG /> : post ? "Update" : "Submit"}
-        </Button>
       </div>
-      {post && (
-        <div className="flex justify-center">
-          <img
-            className="max-w-3xl"
-            src={appwriteServices.getFilePreview(post.imageId)}
-            alt={post.title}
-          />
-        </div>
-      )}
+      <Button type="submit" className="mb-10" disabled={loading}>
+        {loading ? <SmallLoadingSVG /> : post ? "Update" : "Submit"}
+      </Button>
     </form>
   );
 }

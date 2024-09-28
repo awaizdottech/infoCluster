@@ -6,8 +6,12 @@ export default forwardRef(function Select(
 ) {
   const id = useId();
   return (
-    <>
-      {label && <label htmlFor={id}></label>}
+    <div className="flex items-center">
+      {label && (
+        <label htmlFor={id} className="mx-3">
+          {label}
+        </label>
+      )}
       <select
         {...props}
         id={id}
@@ -21,6 +25,6 @@ export default forwardRef(function Select(
           </option>
         ))}
       </select>
-    </>
+    </div>
   );
 });

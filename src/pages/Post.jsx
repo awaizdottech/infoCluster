@@ -22,8 +22,6 @@ export default function Post() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // console.log(posts);
-  // console.log(post);
 
   useEffect(() => {
     if (post) setPageLoading(false);
@@ -49,19 +47,19 @@ export default function Post() {
   return !pageLoading ? (
     <Container className="bg-[#242629] flex flex-col items-center">
       {error && <p className="mb-8">{error}</p>}
-      <h1 className="flex-1 mx-5 my-10 text-5xl londrina-shadow-regular">
+      <h1 className="flex-1 mx-5 my-10 max-xl:mb-6 text-5xl londrina-shadow-regular">
         {post.title}
       </h1>
       {isAuthor && (
-        <div className="hidden xl:block xl:absolute right-6 top-36">
-          <div className="flex flex-col">
+        <div className="xl:absolute right-6 top-36 max-xl:pb-6">
+          <div className="flex xl:flex-col">
             {post.status == "inactive" && (
               <Button disabled bgColor="bg-[#94a1b2]" className="my-3">
                 Inactive
               </Button>
             )}
             <Link to={`/edit-post/${post.$id}`}>
-              <Button>
+              <Button className="max-xl:my-3">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -106,7 +104,7 @@ export default function Post() {
       <img
         src={appwriteService.getFilePreview(post.imageId)}
         alt={post.title}
-        className="rounded-xl max-w-3xl"
+        className="rounded-xl max-w-screen"
       />
 
       <div className="py-10 max-lg:px-6 lg:px-20 2xl:px-28 leading-7">
