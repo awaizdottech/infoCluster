@@ -121,8 +121,6 @@ export default function PostForm({ post }) {
           control={control}
           defaultValue={getValues("content")}
         />
-        {/* </div>
-      <div className="my-6 max-w-screen"> */}
         <Input
           label="Featured Image :"
           type="file"

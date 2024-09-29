@@ -6,11 +6,13 @@ export default forwardRef(function Input(
 ) {
   const id = useId();
   return (
-    <div className="flex items-center">
+    <div className="flex max-md:flex-col max-md:items-stretch items-center">
       {label && (
-        <label className="mx-3" htmlFor={id}>
-          {label}
-        </label>
+        <div className="flex max-md:items-start">
+          <label className="mx-3" htmlFor={id}>
+            {label}
+          </label>
+        </div>
       )}
       <input
         type={type}

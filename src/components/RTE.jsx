@@ -4,7 +4,7 @@ import conf from "../conf/conf";
 
 export default function RTE({ name, control, label, defaultValue = "" }) {
   return (
-    <div className=" my-4 flex items-center">
+    <div className=" my-4 flex items-center max-md:items-start max-md:flex-col">
       {label && <label className="mx-3">{label}</label>}
       <Controller
         name={name || "content"}
